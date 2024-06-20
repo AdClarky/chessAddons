@@ -1,5 +1,5 @@
-import ChessBoard.Board;
-import ChessBoard.BoardListener;
+import chessboard.Board;
+import chessboard.BoardListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -37,6 +37,12 @@ public class Client implements BoardListener {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
+
+    @Override
+    public void checkmate(int x, int y) {}
+
+    @Override
+    public void boardHistoy() {}
 
     public void listenForMessage(){
         new Thread(new Runnable() {
