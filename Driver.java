@@ -2,6 +2,7 @@ import chessboard.Board;
 import chessboard.BoardListener;
 import chessboard.Piece;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 /**
@@ -18,10 +19,17 @@ public final class Driver {
         Board board = new Board();
         BoardListener whitePieces = new GameWindow(board, Piece.WHITE_PIECE);
         board.addBoardListener(whitePieces);
-        BoardListener blackPieces = new GameWindow(board, Piece.BLACK_PIECE);
-        board.addBoardListener(blackPieces);
-//        Autoplay autoplay = new Autoplay(board);
-//        autoplay.importGame(Path.of("games/junk437_vs_AdClarky_2024.06.18.pgn"));
-//        autoplay.play(5);
+        new Thread(() -> {
+            try {
+                Server.main(new String[]{"4444"});
+            } catch (IOException e) {
+                System.err.println("error");
+            }
+        }).start();
+        new Thread(() -> {
+            Client client = new Client("192.168.1.91", 4444, board);
+            board.addBoardListener(client);
+            client.listenForMessage();
+        }).start();
     }
 }

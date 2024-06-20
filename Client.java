@@ -15,11 +15,10 @@ public class Client implements BoardListener {
 
     public Client(String hostName, int portNumber, Board board) {
         this.board = board;
-        board.addBoardListener(this);
         try{
-            this.socket = new Socket(hostName, portNumber);
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            socket = new Socket(hostName, portNumber);
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         } catch(IOException e){
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
@@ -53,7 +52,7 @@ public class Client implements BoardListener {
                 while(socket.isConnected()){
                     try {
                         move = bufferedReader.readLine().toCharArray();
-                        board.movePiece(move[0]-'0', move[2]-'0', move[4]-'0', move[6]-'0');
+                        board.moveWithValidation(move[0]-'0', move[2]-'0', move[4]-'0', move[6]-'0');
                     } catch (IOException e) {
                         closeEverything(socket, bufferedReader, bufferedWriter);
                     }
