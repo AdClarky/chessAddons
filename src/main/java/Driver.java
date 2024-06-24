@@ -17,7 +17,7 @@ public final class Driver {
         BoardListener gameWindow = new GameWindow(board, Piece.BLANK_PIECE);
         board.addBoardListener(gameWindow);
         Autoplay autoplay = new Autoplay(board);
-        JFileChooser chooser = new JFileChooser("games");
+        JFileChooser chooser = new JFileChooser("./src/main/resources");
         chooser.showSaveDialog(null);
         File file = chooser.getSelectedFile();
         if(file == null)
