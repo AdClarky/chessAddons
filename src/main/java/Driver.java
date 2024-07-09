@@ -13,16 +13,8 @@ public final class Driver {
      * @param args none taken.
      */
     public static void main(String[] args) {
-        Board board = new Board();
-        BoardListener gameWindow = new GameWindow(board, Piece.BLANK_PIECE);
-        board.addBoardListener(gameWindow);
-        Autoplay autoplay = new Autoplay(board);
-        JFileChooser chooser = new JFileChooser("./src/main/resources");
-        chooser.showSaveDialog(null);
-        File file = chooser.getSelectedFile();
-        if(file == null)
-            return;
-        autoplay.importGame(Path.of(file.getPath()));
-        autoplay.play(5);
+        ChessGame chessGame = new ChessGame();
+        BoardListener gameWindow = new GameWindow(chessGame, PieceColour.WHITE);
+        chessGame.addBoardListener(gameWindow);
     }
 }
